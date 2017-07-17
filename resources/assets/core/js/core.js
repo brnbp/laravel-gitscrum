@@ -5,8 +5,10 @@ $(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
+
     $('[data-toggle="tooltip"]').tooltip();
+
+    $('[data-provide="markdown"]').markdown({autofocus:false,savable:false})
 
     main.init();
     attachment.init();
@@ -38,7 +40,8 @@ var main = {
 
     modalSwal: function(){
 
-        $('.form-delete .btn-submit-form').on('click', function (event) {
+        $('.form-delete button').on('click', function (event) {
+
             event.preventDefault();
             var button = $(this);
 

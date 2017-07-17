@@ -7,7 +7,6 @@
     <div class="team-members">
         @each('partials.lists.users-min', $card->users, 'user')
     </div>
-    <p>{{str_limit($card->description, 120)}}</p>
 
     <div class="icons">
         @include('partials.boxes.issue-icons', ['issue' => $card])
@@ -28,7 +27,7 @@
     <div class="options">
         <a href="{{route('issues.edit', ['slug' => $card->slug])}}"
         data-toggle="modal" data-target="#modalLarge">
-        <i class="fa fa-pencil" aria-hidden="true"></i> {{trans('Edit Issue')}}</a>
+        <i class="fa fa-pencil" aria-hidden="true"></i> {{trans('gitscrum.edit-issue')}}</a>
     <div>
 
     <div class="clearfix"></div>

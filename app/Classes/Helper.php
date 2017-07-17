@@ -1,9 +1,18 @@
 <?php
+/**
+ * Laravel GitScrum <https://github.com/GitScrum-Community/laravel-gitscrum>
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2017 Renato Marinho <renato.marinho@s2move.com>
+ */
 
 namespace GitScrum\Classes;
 
-use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
+use GitScrum\Models\IssueType;
+use GitScrum\Models\ConfigIssueEffort;
 use Auth;
+use Carbon;
 
 class Helper
 {
@@ -67,6 +76,20 @@ class Helper
         return $arr;
     }
 
+    public static function issueTypes()
+    {
+        return IssueType::where('enabled', 1)
+            ->orderby('position', 'ASC')
+            ->get();
+    }
+
+    public static function issueEfforts()
+    {
+        return ConfigIssueEffort::where('enabled', 1)
+            ->orderby('position', 'ASC')
+            ->get();
+    }
+
     public static function request($url, $auth = true, $customRequest = null, $postFields = null)
     {
         $user = Auth::user();
@@ -92,7 +115,7 @@ class Helper
             $postFields = json_encode($postFields);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_HTTPHEADER,  ['Content-Type: application/json',
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json',
                 'Content-Length: '.strlen($postFields), ]);
         }
 
@@ -112,5 +135,12 @@ class Helper
         curl_close($ch);
 
         return json_decode($result);
+    }
+
+    public static function lengthAwarePaginator($collection, $page = 1)
+    {
+        $page = intval($page)?intval($page):1;
+        return new LengthAwarePaginator($collection->forPage($page, env('APP_PAGINATE')),
+            $collection->count(), env('APP_PAGINATE'));
     }
 }

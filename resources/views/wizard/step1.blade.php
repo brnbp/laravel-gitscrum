@@ -1,16 +1,20 @@
-@section('title',  trans('Welcome to GitScrum - Step 1'))
+@section('title',  trans('gitscrum.welcome-to-gitScrum-step-1'))
 
 @extends('layouts.master')
 
 @section('breadcrumb')
 <div class="nav-wizard">
     <div class="col-lg-6">
-        <h3>{{trans('Welcome to')}} {{trans('GitScrum')}}</h3>
+        <h3>{{trans('gitscrum.welcome-to')}} {{config('app.name')}}</h3>
     </div>
     <div class="col-lg-6">
-        <h3 class="ptn mtn mbn pbn pull-right">{{trans('Choose repositories')}}</h3>
+        <h3 class="ptn mtn mbn pbn pull-right">{{$repositories->count()}} {{trans('gitscrum.repositories')}}</h3>
     </div>
 </div>
+@endsection
+
+@section('main-title')
+<p class="font-bold text-center">{{trans('gitscrum.you-can-import-the-repositories-to-GitScrum')}}</p>
 @endsection
 
 @section('content')
@@ -22,7 +26,8 @@
         @include('partials.boxes.repositories', ['list'=>$repositories, 'columns'=>$columns])
 
         <div class="text-center">
-            <button class="btn btn-lg btn-success">{{trans('Confirm to add repositories into the')}} <strong>{{trans('GitScrum')}}</strong></button>
+            <button class="btn btn-lg btn-success btn-loader">{{trans('gitscrum.confirm-to-add-repositories-into-the')}} <strong>{{config('app.name')
+            }}</strong></button>
         </div>
 
     </form>

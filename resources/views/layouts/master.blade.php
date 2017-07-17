@@ -12,6 +12,14 @@
 
     @endif
 
+    @if (trim($__env->yieldContent('main-title')))
+      <div class="main-title">
+          <div class="container">
+          @yield('main-title')
+          </div>
+      </div>
+   @endif
+
     <div class="content-area">
         <div class="container">
             @include('errors.validation-message')
